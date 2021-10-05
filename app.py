@@ -442,7 +442,7 @@ def predict():
 
     
     pred = model(df, date)
-    return render_template('index.html', prediction_text='Predicted Close Price is $ {}'.format(pred))
+    return render_template('index.html', prediction_text='Predicted Close Price is $ {}'.format(round(pred[0][0],2)))
 
 
 if __name__ == "__main__":
