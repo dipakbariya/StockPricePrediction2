@@ -6,7 +6,7 @@ gunicorn==19.9.0
 sklearn
 snscrape
 pandas
-nltk
+nltk==3.4.5
 tqdm
 yfinance
 
