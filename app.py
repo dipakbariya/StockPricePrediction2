@@ -142,7 +142,7 @@ def predict():
 
       df = tokenizer(df)
 
-
+      """
       import nltk
       nltk.download('stopwords')  
       from nltk.corpus import stopwords
@@ -161,7 +161,8 @@ def predict():
         l.append(t)
       df["temp_list2"] = l
       textt = " ".join(review for review in df.temp_list2)
-
+      """
+    
       sid = SentimentIntensityAnalyzer()
       ss=[]
       for k in tqdm(df.temp_list2):
