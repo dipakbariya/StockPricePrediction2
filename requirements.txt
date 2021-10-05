@@ -7,7 +7,6 @@ sklearn
 snscrape
 pandas
 nltk
-string
 re
 tqdm
 yfinance
