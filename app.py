@@ -6,9 +6,7 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.preprocessing import LabelEncoder
 import snscrape.modules.twitter as sntwitter
 import pandas as pd
-import re as re
 from nltk.tokenize import TweetTokenizer
-import string
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
 from tqdm import tqdm
 
@@ -142,7 +140,7 @@ def predict():
 
       df = tokenizer(df)
 
-      """
+      
       import nltk
       nltk.download('stopwords')  
       from nltk.corpus import stopwords
@@ -161,7 +159,7 @@ def predict():
         l.append(t)
       df["temp_list2"] = l
       textt = " ".join(review for review in df.temp_list2)
-      """
+      
     
       sid = SentimentIntensityAnalyzer()
       ss=[]
