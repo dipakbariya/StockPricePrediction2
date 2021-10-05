@@ -14,16 +14,16 @@
 
 <body>
  <div class="login">
-	<h1>Stock Price Prediction </h1>
+	<h1 "color:green; text-align:center;">Stock Price Prediction </h1>
 
      <!-- Main Input For Receiving Query to our ML -->
     <form action="{{ url_for('predict')}}"method="post">
-    	Since_Date: 
-	<input type="date" name="since_date" placeholder="Date_0" required="required" />
-	Until_Date:
-	<input type="date" name="until_date" placeholder="Date_1" required="required" />
-	Hashtag:
-	<input type="text" name="hashtag" placeholder="Date" required="required" />
+    	Since date: 
+	<input type="date" name="since_date" placeholder="Start date" required="required" />
+	Until date:
+	<input type="date" name="until_date" placeholder="End date" required="required" />
+	Stock Name:
+	<input type="text" name="hashtag" placeholder="Stock Name" required="required" />
 	<br>
 	
 
