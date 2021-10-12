@@ -436,7 +436,12 @@ def predict():
       y_pred = rf_2.predict(np.array(test))
       y_pred = sc2.inverse_transform([y_pred])
 
+      html = test.to_html()
 
+    #write html to file
+      text_file = open("index.html", "w")
+      text_file.write(html)
+      text_file.close()
 
       return y_pred
 
