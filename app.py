@@ -462,7 +462,7 @@ def graph():
     p = figure(title="Stock Price Plot for Last Month {}".format(hashtag), x_axis_label='Date', y_axis_label='Price',
                    x_axis_type="datetime")
 #     y = list(A.Cloe)
-    p.line(A.index, A.Close, legend="{}".format(hashtag), line_width=1, color="red")
+    p.line(A.index, A.Close, legend="{}".format("apple"), line_width=1, color="red")
     script, div = components(p)
     return render_template('graph.html', div=div, script=script)
 
