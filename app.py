@@ -459,7 +459,7 @@ def graph():
     k.index=k.Date
     A = k.groupby(by='StockName').get_group("apple")
 
-    p = figure(title="Stock Price Plot for Last Month {}".format(hashtag), x_axis_label='Date', y_axis_label='Price',
+    p = figure(title="Stock Price Plot for Last Month {}".format("apple"), x_axis_label='Date', y_axis_label='Price',
                    x_axis_type="datetime")
 #     y = list(A.Cloe)
     p.line(A.index, A.Close, legend="{}".format("apple"), line_width=1, color="red")
