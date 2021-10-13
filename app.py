@@ -1,6 +1,6 @@
 import numpy as np
 import flask
-from flask import Flask, request, jsonify, render_template
+from flask import Flask, request, jsonify, render_template, redirect
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.preprocessing import StandardScaler
 from sklearn.preprocessing import LabelEncoder
@@ -11,6 +11,8 @@ from nltk.sentiment.vader import SentimentIntensityAnalyzer
 from tqdm import tqdm
 import string
 import re as re
+from bokeh.plotting import figure, output_file, show
+from bokeh.embed import components
 
 #Initializing the application name [here, the name is app]
 app = Flask(__name__)
@@ -448,6 +450,14 @@ def predict():
     
     pred = model(df, date)
     return render_template('index.html', prediction_text='Predicted Close Price is $ {}'.format(round(pred[0][0],2))) 
+
+def graph():
+    p = figure(title="Stock Price Plot for Last Month {}".format(hashtag), x_axis_label='Date', y_axis_label='Price',
+                   x_axis_type="datetime")
+#     y = list(A.Cloe)
+    p.line(A.index, A.Close, legend="{}".format(hashtag), line_width=1, color="red")
+    script, div = components(p)
+    return render_template('graph.html', div=div, script=script)
 
 
 if __name__ == "__main__":
