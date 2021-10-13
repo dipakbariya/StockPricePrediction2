@@ -9,5 +9,5 @@ pandas
 nltk==3.4.5
 tqdm
 yfinance
-bokeh
+bokeh==0.12.14
 
