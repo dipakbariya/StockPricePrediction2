@@ -452,7 +452,7 @@ def predict():
     pred = model(df, date)
     return render_template('index.html', prediction_text='Predicted Close Price is $ {}'.format(round(pred[0][0],2))) 
 
-@app.route('/predict',methods=['GET'])
+@app.route('/graph',methods=['GET'])
 def graph():
     k = pd.read_csv("Twitter_stock_final_dataset.csv")
     k["Date"] = pd.to_datetime(k[['Day','Month','Year']])
