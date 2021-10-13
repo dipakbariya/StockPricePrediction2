@@ -22,6 +22,7 @@ import base64
 
 #Initializing the application name [here, the name is app]
 app = Flask(__name__)
+DATABASE_URL = os.environ['DATABASE_URL']
 
 #Loading the model created in model.py
 #model = pickle.load(open('model.pkl', 'rb'))
@@ -33,6 +34,14 @@ def home():
 
 @app.route('/plot',methods=['GET'])
 def plot_png():
+    con = psycopg2.connect('DATABASE_URL')
+    cu = con.cursor()
+    
+    query = f"""SELECT * FROM DATABASE """
+    
+    results = pd.read_sql(query, con)
+    
+    
     
     fig = Figure()
     
@@ -334,7 +343,7 @@ def predict():
 
     
 
-    return render_template('index.html',prediction_text='Predicted Close Price for {} stock is $ {}'.format(hashtag1, round(pred[0][0],2)), script='{}'.format(script), div='{}'.format(div), plot1 = pngImageB64String, RE='{}'.format(RE))   #
+    return render_template('index.html',prediction_text='Predicted Close Price for {} stock is $ {}'.format(hashtag1, round(pred[0][0],2)), script='{}'.format(script), div='{}'.format(div), plot1 = pngImageB64String, RE='{}'.format(results))   #
 
 
 if __name__ == "__main__":
