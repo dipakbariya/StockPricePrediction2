@@ -450,10 +450,7 @@ def predict():
 
     
     pred = model(df, date)
-    return render_template('index.html', prediction_text='Predicted Close Price is $ {}'.format(round(pred[0][0],2))) 
-
-@app.route('/graph',methods=['GET'])
-def graph():
+    
     k = pd.read_csv("Twitter_stock_final_dataset.csv")
     k["Date"] = pd.to_datetime(k[['Day','Month','Year']])
     k.index=k.Date
@@ -464,7 +461,12 @@ def graph():
 #     y = list(A.Cloe)
     p.line(A.index, A.Close, legend="{}".format("apple"), line_width=1, color="red")
     script, div = components(p)
-    return render_template('graph.html', div=div, script=script)
+    return render_template('index.html', prediction_text='Predicted Close Price is $ {}'.format(round(pred[0][0],2)), div=div, script=script) 
+
+# @app.route('/graph',methods=['GET'])
+# def graph():
+    
+#     return render_template('graph.html', div=div, script=script)
 
 
 if __name__ == "__main__":
