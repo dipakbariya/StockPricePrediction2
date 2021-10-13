@@ -22,7 +22,7 @@ import base64
 
 #Initializing the application name [here, the name is app]
 app = Flask(__name__)
-DATABASE_URL = os.environ['DATABASE_URL']
+DATABASE_URL = os.environ['postgresql://yhvwlkefgakryo:64548ee24c94aa91c69a7360e787dce102b33cf0a69a1c5aaa984831f72fbe39@ec2-54-166-37-125.compute-1.amazonaws.com:5432/d7sq0s42rmtm2j']
 
 #Loading the model created in model.py
 #model = pickle.load(open('model.pkl', 'rb'))
