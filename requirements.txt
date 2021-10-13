@@ -14,3 +14,4 @@ tqdm
 yfinance
 IPython
 psycopg2
+os
