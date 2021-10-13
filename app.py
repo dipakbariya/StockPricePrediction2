@@ -29,13 +29,7 @@ def home():
 
 #Calling the prediction function using the POST method
 @app.route('/predict',methods=['POST'])
-def graph():
-    p = figure(title="Stock Price Plot for Last Month {}".format(hashtag), x_axis_label='Date', y_axis_label='Price',
-                   x_axis_type="datetime")
-#     y = list(A.Cloe)
-    p.line(A.index, A.Close, legend="{}".format(hashtag), line_width=1, color="red")
-    script, div = components(p)
-    return render_template('graph.html', div=div, script=script)
+
 def predict():
     old_df = pd.read_csv("Twitter_stock_final_dataset.csv")
     old_df["Date"] = pd.to_datetime(old_df[['Day','Month','Year']])
@@ -458,7 +452,19 @@ def predict():
     pred = model(df, date)
     return render_template('index.html', prediction_text='Predicted Close Price is $ {}'.format(round(pred[0][0],2))) 
 
+@app.route('/predict',methods=['GET'])
+def graph():
+    k = pd.read_csv("Twitter_stock_final_dataset.csv")
+    k["Date"] = pd.to_datetime(k[['Day','Month','Year']])
+    k.index=k.Date
+    A = k.groupby(by='StockName').get_group("apple")
 
+    p = figure(title="Stock Price Plot for Last Month {}".format(hashtag), x_axis_label='Date', y_axis_label='Price',
+                   x_axis_type="datetime")
+#     y = list(A.Cloe)
+    p.line(A.index, A.Close, legend="{}".format(hashtag), line_width=1, color="red")
+    script, div = components(p)
+    return render_template('graph.html', div=div, script=script)
 
 
 if __name__ == "__main__":
