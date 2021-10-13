@@ -35,9 +35,9 @@ def home():
 @app.route('/plot',methods=['GET'])
 def plot_png():
     con = psycopg2.connect('DATABASE_URL')
-    cu = con.cursor()
+    cur = con.cursor()
     
-    query = f"""SELECT * FROM DATABASE """
+    query = f"""SELECT * FROM DATABASE"""
     
     results = pd.read_sql(query, con)
     
