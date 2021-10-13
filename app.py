@@ -16,6 +16,7 @@ import string
 import re as re
 from bokeh.plotting import figure, output_file, show
 from bokeh.embed import components
+import base64
 
 #Initializing the application name [here, the name is app]
 app = Flask(__name__)
@@ -292,30 +293,47 @@ def predict():
     test = df_all[["Year","Month","Day","Stockname","Positive","Negative","Neutral","Volume","Open","High","Low","Day_of_week"]]
     pred = rf_2.predict(np.array(test))
     pred = sc2.inverse_transform([pred])
-
-
-
-    
     
     
     k = pd.read_csv("Twitter_stock_final_dataset.csv")
     k["Date"] = pd.to_datetime(k[['Day','Month','Year']])
     k.index=k.Date
-    A = k.groupby(by='StockName').get_group("apple")
+    A = k.groupby(by='StockName').get_group(str(hashtag1))
 
-    p = figure(title="Stock Price Plot for Last Month {}".format("apple"), x_axis_label='Date', y_axis_label='Price',
+    p = figure(title="{} Stock Price Plot Jan 2020- Sep 2021".format(str(hashtag1)), x_axis_label='Date', y_axis_label='Price',
                    x_axis_type="datetime")
 #     y = list(A.Cloe)
-    p.line(A.index, A.Close, legend="{}".format("apple"), line_width=1, color="red")
+    p.line(A.index, A.Close, legend="{}".format(str(hashtag1)), line_width=1, color="red")
     script, div = components(p)
-    return render_template('index.html', prediction_text='Predicted Close Price is $ {}'.format(round(pred[0][0],2)), div=div, script=script) 
-
-# @app.route('/graph',methods=['GET'])
-# def graph():
     
-#     return render_template('graph.html', div=div, script=script)
+    fig = Figure(figsize=(12,5), linewidth=1)
+    axis = fig.add_subplot(1, 1, 1)
+    axis.set_title("{} Stock Price Plot Jan 2020 - Sep 2021".format(str(hashtag1)))
+    axis.set_xlabel("Year")
+    axis.set_ylabel("Stock Price")
+    axis.grid()
+    axis.plot(A.index, A.Close)  
+    # "ro-"
+    
+#     Convert plot to PNG image
+    pngImage = io.BytesIO()
+    FigureCanvas(fig).print_png(pngImage)
+    
+    # Encode PNG image to base64 string
+    pngImageB64String = "data:image/png;base64,"
+    pngImageB64String += base64.b64encode(pngImage.getvalue()).decode('utf8')
+    
+#     return render_template("image.html", image=pngImageB64String)
+
+    if until in k.index:
+        RE = True
+    else:
+        RE = False
+
+    
+
+    return render_template('index.html',prediction_text='Predicted Close Price for {} stock is $ {}'.format(hashtag1, round(pred[0][0],2)), script='{}'.format(script), div='{}'.format(div), plot1 = pngImageB64String, RE='{}'.format(RE))   #
 
 
 if __name__ == "__main__":
     app.run(debug=True)
-
